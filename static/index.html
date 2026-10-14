@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clinic RAG & Patient Data Platform | ENT & Neurotology</title>
+    <meta name="description" content="AI-Powered RAG and Clinical Patient Management System for ENT and Vertigo Clinic">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/styles.css">
+    <!-- Markdown & Sanitizer Libraries for Rich Clinical AI Formatting -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.6/dist/purify.min.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Top Glass Navigation Bar -->
+        <header class="app-header">
+            <div class="header-brand">
+                <div class="brand-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                    </svg>
+                </div>
+                <div class="brand-text">
+                    <h1>Neurotology<span>RAG v2</span></h1>
+                    <span class="subtitle">Dr. Amol Acharya ENT & Vertigo Intelligence</span>
+                </div>
+            </div>
+
+            <nav class="header-nav">
+                <button class="nav-tab active" id="tab-btn-dashboard" data-tab="dashboard">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                    Dashboard
+                </button>
+                <button class="nav-tab" id="tab-btn-patients" data-tab="patients">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    Patient Directory
+                </button>
+                <button class="nav-tab" id="tab-btn-rag" data-tab="rag">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><line x1="9" y1="9" x2="15" y2="9"/><line x1="9" y1="13" x2="13" y2="13"/></svg>
+                    Ask Clinic AI
+                </button>
+            </nav>
+
+            <div class="header-actions">
+                <div class="status-badge" id="status-badge">
+                    <span class="status-dot"></span>
+                    <span id="indexed-count-text">576 Patient Docs</span>
+                </div>
+                <button class="theme-toggle-btn" id="theme-toggle" title="Toggle Light/Dark Theme">
+                    <svg class="sun-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                    <svg class="moon-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Workspace Area -->
+        <main class="main-content">
+            <!-- TAB 1: DASHBOARD -->
+            <section class="tab-view active" id="view-dashboard">
+                <div class="section-header">
+                    <h2>Clinic Overview & Analytics</h2>
+                    <p class="section-desc">Real-time statistics across 576 neurotological evaluation and VNG reports.</p>
+                </div>
+
+                <!-- KPI Metric Cards Grid -->
+                <div class="kpi-grid">
+                    <div class="kpi-card glass-card">
+                        <div class="kpi-icon icon-blue">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                        </div>
+                        <div class="kpi-content">
+                            <span class="kpi-label">Total Patient Records</span>
+                            <span class="kpi-value" id="kpi-total-patients">576</span>
+                            <span class="kpi-subtext">Active Evaluation Files</span>
+                        </div>
+                    </div>
+
+                    <div class="kpi-card glass-card">
+                        <div class="kpi-icon icon-purple">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                        </div>
+                        <div class="kpi-content">
+                            <span class="kpi-label">BPPV Cases</span>
+                            <span class="kpi-value" id="kpi-bppv-count">253</span>
+                            <span class="kpi-subtext">43.9% of Total Cohort</span>
+                        </div>
+                    </div>
+
+                    <div class="kpi-card glass-card">
+                        <div class="kpi-icon icon-emerald">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+                        </div>
+                        <div class="kpi-content">
+                            <span class="kpi-label">Vestibular Migraine</span>
+                            <span class="kpi-value" id="kpi-vm-count">160</span>
+                            <span class="kpi-subtext">27.8% of Total Cohort</span>
+                        </div>
+                    </div>
+
+                    <div class="kpi-card glass-card">
+                        <div class="kpi-icon icon-amber">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                        </div>
+                        <div class="kpi-content">
+                            <span class="kpi-label">Ménière's Disease</span>
+                            <span class="kpi-value" id="kpi-md-count">123</span>
+                            <span class="kpi-subtext">21.3% of Total Cohort</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dashboard Charts & Breakdown -->
+                <div class="dashboard-grid">
+                    <div class="dash-card glass-card">
+                        <h3>Diagnostic Condition Breakdown</h3>
+                        <p class="card-subtitle">Distribution of primary medical tags across records</p>
+                        <div class="tag-bars-list" id="diagnostic-tags-list"></div>
+                    </div>
+
+                    <div class="dash-card glass-card">
+                        <h3>Age & Gender Demographics</h3>
+                        <p class="card-subtitle">Patient cohort distribution by age groups</p>
+                        <div class="demographics-wrapper">
+                            <div class="gender-pills-row">
+                                <div class="gender-pill male">
+                                    <span class="g-label">Male</span>
+                                    <span class="g-count" id="gender-male-count">260</span>
+                                </div>
+                                <div class="gender-pill female">
+                                    <span class="g-label">Female</span>
+                                    <span class="g-count" id="gender-female-count">230</span>
+                                </div>
+                                <div class="gender-pill unspecified">
+                                    <span class="g-label">Unspecified</span>
+                                    <span class="g-count" id="gender-unknown-count">86</span>
+                                </div>
+                            </div>
+                            <div class="age-bars-container" id="age-bars-container"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 2: PATIENT DIRECTORY -->
+            <section class="tab-view" id="view-patients">
+                <div class="section-header">
+                    <h2>Patient Directory & Clinical Search</h2>
+                    <p class="section-desc">Search, filter, and organize patient files by diagnosis, symptoms, and test findings.</p>
+                </div>
+
+                <!-- Search & Filters Toolbar -->
+                <div class="filter-toolbar glass-card">
+                    <div class="search-box">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                        <input type="text" id="patient-search-input" placeholder="Search by patient name, symptom, diagnosis, VNG test result (e.g. Epley, Saccades)...">
+                        <button class="clear-search-btn" id="clear-search-btn" style="display:none;">&times;</button>
+                    </div>
+
+                    <div class="filter-controls">
+                        <div class="control-group">
+                            <label>Gender:</label>
+                            <select id="gender-filter-select" class="custom-select">
+                                <option value="All">All Genders</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+                        </div>
+
+                        <div class="view-toggle">
+                            <button class="toggle-btn active" id="view-mode-grid" title="Grid View">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                            </button>
+                            <button class="toggle-btn" id="view-mode-list" title="List View">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tag Chips Scroller -->
+                <div class="tag-chips-bar" id="tag-chips-bar"></div>
+
+                <!-- Results Counter Bar -->
+                <div class="results-meta">
+                    <span id="results-count-text">Showing 20 of 576 patients</span>
+                </div>
+
+                <!-- Patient Grid Container -->
+                <div class="patients-grid" id="patients-container"></div>
+
+                <!-- Pagination Container -->
+                <div class="pagination-bar" id="pagination-bar"></div>
+            </section>
+
+            <!-- TAB 3: AI RAG ASSISTANT -->
+            <section class="tab-view" id="view-rag">
+                <div class="section-header">
+                    <h2>Clinic AI Assistant (Hybrid RAG)</h2>
+                    <p class="section-desc">Query patient records in natural language. Uses BM25 + Gemini Vector Embeddings + RRF Re-ranking.</p>
+                </div>
+
+                <!-- Prompt Preset Chips -->
+                <div class="preset-prompts-wrapper">
+                    <span class="preset-label">Sample Queries:</span>
+                    <div class="preset-chips">
+                        <button class="preset-chip" data-prompt="What are the common symptoms and treatments for patients diagnosed with BPPV? Compare posterior canal vs lateral canal findings.">BPPV Symptoms & Maneuvers</button>
+                        <button class="preset-chip" data-prompt="List all patients diagnosed with Ménière's Disease and summarize their prescribed medications in a markdown table.">Ménière's Disease Medication Table</button>
+                        <button class="preset-chip" data-prompt="Which patients presented with Vestibular Migraine and what were their VNG test findings?">Vestibular Migraine & VNG</button>
+                        <button class="preset-chip" data-prompt="Summarize cases of Persistent Postural-Perceptual Dizziness (PPPD) in our dataset.">PPPD Patient Cases</button>
+                    </div>
+                </div>
+
+                <!-- RAG Query Box -->
+                <div class="rag-search-card glass-card">
+                    <div class="rag-input-wrapper">
+                        <textarea id="rag-prompt-input" rows="3" placeholder="Ask any clinical question (e.g. 'Summarize all patients treated with Flunarizine and their response', 'What are the VNG findings for patients with unilateral vestibulopathy?')..."></textarea>
+                    </div>
+                    <div class="rag-action-row">
+                        <div class="rag-filter-selector">
+                            <label>Scope:</label>
+                            <select id="rag-tag-scope" class="custom-select">
+                                <option value="All">All Patient Records (576)</option>
+                                <option value="BPPV">BPPV Records Only</option>
+                                <option value="Ménière's Disease">Ménière's Records Only</option>
+                                <option value="Vestibular Migraine">Vestibular Migraine Only</option>
+                                <option value="PPPD">PPPD Records Only</option>
+                            </select>
+                        </div>
+                        <button class="btn-primary" id="btn-run-rag">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                            Ask Clinic AI
+                        </button>
+                    </div>
+                </div>
+
+                <!-- RAG Output Container -->
+                <div class="rag-response-container" id="rag-response-container" style="display: none;">
+                    <div class="response-card glass-card">
+                        <div class="response-header">
+                            <div class="ai-avatar">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10H12V2z"/><path d="M12 12L2.5 7.5"/><path d="M12 12v10"/></svg>
+                            </div>
+                            <h3>Clinic AI Synthesis</h3>
+                        </div>
+
+                        <div class="response-body markdown-body" id="rag-response-body"></div>
+
+                        <!-- Cited Sources Accordion -->
+                        <div class="sources-accordion">
+                            <div class="sources-header" id="sources-toggle-btn">
+                                <span>📚 Retained Document Evidence (<span id="sources-count">0</span> Sources)</span>
+                                <svg id="sources-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                            </div>
+                            <div class="sources-list" id="sources-list" style="display: none;"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- PATIENT DETAIL MODAL DRAWER -->
+        <div class="modal-backdrop" id="patient-modal" style="display: none;">
+            <div class="modal-card glass-card">
+                <button class="modal-close-btn" id="modal-close-btn">&times;</button>
+                <div class="modal-header">
+                    <div class="modal-title-group">
+                        <h2 id="modal-patient-name">Patient Name</h2>
+                        <div class="modal-tags-row" id="modal-tags-row"></div>
+                    </div>
+                    <div class="modal-meta-bar">
+                        <span id="modal-patient-age-gender">Age / Gender</span> &bull;
+                        <span>Exam Date: <strong id="modal-patient-date">--</strong></span>
+                    </div>
+                </div>
+
+                <div class="modal-tabs">
+                    <button class="mod-tab active" data-modtab="overview">Clinical Summary</button>
+                    <button class="mod-tab" data-modtab="vng">VNG & Investigations</button>
+                    <button class="mod-tab" data-modtab="treatment">Diagnosis & Treatment</button>
+                    <button class="mod-tab" data-modtab="raw">Full Report Text</button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="mod-tab-content active" id="modcontent-overview">
+                        <div class="detail-section">
+                            <h4>Clinical History</h4>
+                            <p id="modal-history-text" class="detail-text"></p>
+                        </div>
+                        <div class="detail-section">
+                            <h4>Past Medical History</h4>
+                            <p id="modal-pasthistory-text" class="detail-text"></p>
+                        </div>
+                        <div class="detail-section">
+                            <h4>ENT & Neurological Examination</h4>
+                            <p id="modal-ent-text" class="detail-text"></p>
+                        </div>
+                    </div>
+
+                    <div class="mod-tab-content" id="modcontent-vng">
+                        <div class="detail-section">
+                            <h4>Previous Investigations (MRI / PTA)</h4>
+                            <p id="modal-investigations-text" class="detail-text"></p>
+                        </div>
+                        <div class="detail-section">
+                            <h4>Video Nystagmography (VNG) Results</h4>
+                            <pre id="modal-vng-text" class="detail-code"></pre>
+                        </div>
+                    </div>
+
+                    <div class="mod-tab-content" id="modcontent-treatment">
+                        <div class="detail-section">
+                            <h4>Clinical Impression / Diagnostic Verdict</h4>
+                            <div class="impression-box" id="modal-impression-text"></div>
+                        </div>
+                        <div class="detail-section">
+                            <h4>Prescribed Treatment & Maneuvers</h4>
+                            <p id="modal-treatment-text" class="detail-text"></p>
+                        </div>
+                    </div>
+
+                    <div class="mod-tab-content" id="modcontent-raw">
+                        <pre id="modal-raw-text" class="raw-report-box"></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>

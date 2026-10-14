@@ -1,0 +1,131 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  :root {
+    --bg-base: #f6f8fc;
+    --bg-surface: #ffffff;
+    --text-primary: #0f172a;
+    --border-color: #e2e8f0;
+  }
+
+  .dark {
+    --bg-base: #0b0c15;
+    --bg-surface: #0f0f1e;
+    --text-primary: #f8fafc;
+    --border-color: rgba(255, 255, 255, 0.08);
+  }
+
+  body {
+    background-color: var(--bg-base);
+    color: var(--text-primary);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    min-height: 100vh;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+}
+
+/* Rich Markdown Styling for Light & Dark Mode */
+.markdown-body {
+  font-size: 0.9rem;
+  line-height: 1.65;
+}
+
+.dark .markdown-body {
+  color: #f1f5f9;
+}
+
+.markdown-body h1, .markdown-body h2, .markdown-body h3, .markdown-body h4 {
+  font-family: 'Outfit', sans-serif;
+  margin-top: 1.2em;
+  margin-bottom: 0.6em;
+  font-weight: 700;
+}
+
+.markdown-body h2 {
+  font-size: 1.15rem;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+  padding-bottom: 6px;
+  color: #6366f1;
+}
+
+.dark .markdown-body h2 {
+  color: #818cf8;
+}
+
+.markdown-body h3 {
+  font-size: 1.05rem;
+  color: #0284c7;
+}
+
+.dark .markdown-body h3 {
+  color: #38bdf8;
+}
+
+.markdown-body p {
+  margin-bottom: 1em;
+}
+
+.markdown-body ul, .markdown-body ol {
+  margin-left: 1.5em;
+  margin-bottom: 1em;
+  list-style-type: disc;
+}
+
+.markdown-body li {
+  margin-bottom: 0.4em;
+}
+
+.markdown-body strong {
+  color: #4f46e5;
+  font-weight: 600;
+}
+
+.dark .markdown-body strong {
+  color: #a5b4fc;
+}
+
+.markdown-body table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.2em 0;
+  font-size: 0.85rem;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+}
+
+.dark .markdown-body table {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #0f172a;
+}
+
+.markdown-body th, .markdown-body td {
+  padding: 10px 14px;
+  border: 1px solid #e2e8f0;
+  text-align: left;
+}
+
+.dark .markdown-body th, .dark .markdown-body td {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.markdown-body th {
+  background: rgba(99, 102, 241, 0.1);
+  color: #4f46e5;
+  font-weight: 600;
+}
+
+.dark .markdown-body th {
+  background: rgba(99, 102, 241, 0.2);
+  color: #818cf8;
+}
+
+.markdown-body tr:nth-child(even) {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.dark .markdown-body tr:nth-child(even) {
+  background: rgba(255, 255, 255, 0.02);
+}
